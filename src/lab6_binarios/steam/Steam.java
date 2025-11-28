@@ -2,6 +2,7 @@ package lab6_binarios.steam;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.util.Calendar;
 
@@ -247,5 +248,106 @@ public class Steam {
             System.out.println("Error en downloadGame: "+ex.getMessage());
             return false;
         }
+    }public boolean updatePriceFor(int codGame, double newPrice) {
+    try {
+        rGames.seek(0);
+
+        while (rGames.getFilePointer() < rGames.length()) {
+
+            long inicioRegistro = rGames.getFilePointer();
+
+            int code = rGames.readInt();
+            String titulo = rGames.readUTF();
+            char so = rGames.readChar();
+            int edadMinima = rGames.readInt();
+
+            long posPrecio = rGames.getFilePointer(); // posición exacta del precio
+            double precioActual = rGames.readDouble();
+
+            int contadorDownloads = rGames.readInt();
+            String rutaImagen = rGames.readUTF();
+
+            if (code == codGame) {
+                rGames.seek(posPrecio);
+                rGames.writeDouble(newPrice);
+                return true;
+            }
+        }
+
+    } catch (Exception ex) {
+        System.out.println("Error en updatePriceFor: " + ex.getMessage());
     }
+
+    return false;
+}
+    public void reportForClient(int codPlayer, String fileOut) {
+
+    try {
+        rPlayers.seek(0);
+
+        while (rPlayers.getFilePointer() < rPlayers.length()) {
+
+            int code = rPlayers.readInt();
+            String username = rPlayers.readUTF();
+            String password = rPlayers.readUTF();
+            String nombre = rPlayers.readUTF();
+            long nacimiento = rPlayers.readLong();
+            int contadorDownloads = rPlayers.readInt();
+            String rutaImagen = rPlayers.readUTF();
+            String tipoUsuario = rPlayers.readUTF();
+
+            if (code == codPlayer) {
+                PrintWriter pw = new PrintWriter(new File(fileOut));
+
+                pw.println("========= REPORTE DEL CLIENTE =========");
+                pw.println("Código: " + code);
+                pw.println("Username: " + username);
+                pw.println("Nombre: " + nombre);
+                pw.println("Password: " + password);
+                pw.println("Fecha nacimiento (ms): " + nacimiento);
+                pw.println("Descargas realizadas: " + contadorDownloads);
+                pw.println("Imagen: " + rutaImagen);
+                pw.println("Tipo de usuario: " + tipoUsuario);
+
+                pw.close();
+                System.out.println("REPORTE CREADO");
+                return;
+            }
+        }
+
+        System.out.println("NO SE PUEDE CREAR REPORTE");
+
+    } catch (Exception ex) {
+        System.out.println("NO SE PUEDE CREAR REPORTE");
+    }
+}
+public void printGames() {
+    try {
+        rGames.seek(0);
+
+        while (rGames.getFilePointer() < rGames.length()) {
+
+            int code = rGames.readInt();
+            String titulo = rGames.readUTF();
+            char so = rGames.readChar();
+            int edadMinima = rGames.readInt();
+            double precio = rGames.readDouble();
+            int contadorDownloads = rGames.readInt();
+            String rutaImagen = rGames.readUTF();
+
+            System.out.println("\n===== VIDEOJUEGO =====");
+            System.out.println("Código: " + code);
+            System.out.println("Título: " + titulo);
+            System.out.println("SO: " + so);
+            System.out.println("Edad mínima: " + edadMinima);
+            System.out.println("Precio: $" + precio);
+            System.out.println("Descargas: " + contadorDownloads);
+            System.out.println("Imagen: " + rutaImagen);
+        }
+
+    } catch (Exception ex) {
+        System.out.println("Error en printGames: " + ex.getMessage());
+    }
+}
+
 }

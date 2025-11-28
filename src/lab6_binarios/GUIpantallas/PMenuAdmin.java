@@ -15,6 +15,9 @@ import java.awt.*;
  */
 public class PMenuAdmin extends JFrame{
      public PMenuAdmin(Steam steam, Player admin) {
+
+            Audios.loginSound ();
+
         setTitle("Steam - Admin");
         setSize(400, 300);
         setLayout(new GridLayout(4, 2));

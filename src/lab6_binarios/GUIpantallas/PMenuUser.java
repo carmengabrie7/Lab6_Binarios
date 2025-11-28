@@ -13,8 +13,10 @@ import java.awt.*;
  * @author andre
  */
 public class PMenuUser extends JFrame {
-    
-     public PMenuUser(Steam steam, Player user) {
+
+    public PMenuUser(Steam steam, Player user) {
+        Audios.loginSound();
+
         setTitle("Steam - Usuario");
         setSize(400, 300);
         setLayout(new GridLayout(3, 1));

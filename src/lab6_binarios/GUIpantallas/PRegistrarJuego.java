@@ -4,6 +4,10 @@
  */
 package lab6_binarios.GUIpantallas;
 
+
+import lab6_binarios.steam.Steam;
+import java.awt.*;
+import java.util.Date;
 import javax.swing.*;
 
 /**
@@ -11,5 +15,5 @@ import javax.swing.*;
  * @author andre
  */
 public class PRegistrarJuego extends JFrame {
-    
+  
 }

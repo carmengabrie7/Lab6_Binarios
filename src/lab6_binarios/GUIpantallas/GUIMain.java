@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package lab6_binarios.GUIpantallas;
+import lab6_binarios.steam.Steam;
 
 /**
  *

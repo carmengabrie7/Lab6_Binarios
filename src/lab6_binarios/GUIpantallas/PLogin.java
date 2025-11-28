@@ -3,20 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package lab6_binarios.GUIpantallas;
+
 import lab6_binarios.steam.Steam;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import javax.sound.sampled.*;
+
 /**
  *
  * @author andre
  */
 public class PLogin extends JFrame {
-   private JTextField txtUsuario;
+
+    private JTextField txtUsuario;
     private JPasswordField txtPassword;
     private JButton btnIngresar;
+
 
     private Steam steam; // referencia al sistema
 
@@ -40,14 +41,15 @@ public class PLogin extends JFrame {
         add(btnIngresar);
 
         btnIngresar.addActionListener(e -> {
-            Player p = steam.login(txtUsuario.getText(), new String(txtPassword.getPassword()));
+            Player p = steam.add(txtUsuario.getText(), new String(txtPassword.getPassword()));
             if (p == null) {
+                
                 JOptionPane.showMessageDialog(this, "Datos incorrectos");
             } else if (p.getTipoUsuario().equals("admin")) {
-                new MenuAdmin(steam, p).setVisible(true);
+                new PMenuAdmin(steam, p).setVisible(true);
                 this.dispose();
             } else {
-                new MenuUser(steam, p).setVisible(true);
+                new PMenuUser(steam, p).setVisible(true);
                 this.dispose();
             }
         });
